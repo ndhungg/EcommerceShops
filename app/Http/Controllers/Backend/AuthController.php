@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\AuthRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 
 class AuthController extends Controller
@@ -29,6 +30,9 @@ class AuthController extends Controller
          'password'=>$request->input('password')
       ];
 
+      
+      // $hashedPassword = $request['password'];
+      // $hashedPassword = Hash::make($hashedPassword);
       // dd($hashedPassword);
 
       if(Auth::attempt($credentials)){

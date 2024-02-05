@@ -80,13 +80,6 @@ table strong {
     display: inline-block;
 }
 
-.btn {
-    margin: 0px;
-    font-size:13px;
-    border-radius: 0;
-    height: 32px;
-}
-
 .selected-role{
     max-width: 200px;
 }
@@ -127,6 +120,11 @@ table strong {
 
 .mt5{
     margin-top: 5px;
+}
+
+
+.mb10{
+    margin-bottom: 10px;
 }
 
 .box .ibox{

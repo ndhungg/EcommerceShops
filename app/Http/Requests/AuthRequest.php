@@ -28,7 +28,7 @@ class AuthRequest extends FormRequest
     }
 
 
-    public function message(): array
+    public function messages(): array
     {
         return [
             'email.required' => 'Bạn chưa nhập vào Email.',

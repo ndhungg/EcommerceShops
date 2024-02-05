@@ -1,6 +1,18 @@
 @include('backend.dashboard.component.breadcrumb',['title' => $config['seo']['create']['title']])
-
-<form method="post" action="" class="box">
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+@php
+    $url = ($config['method'] == 'create') ?  route('user.store') : route('user.update', $user->id);
+@endphp
+<form method="post" action="{{ $url }}" class="box">
+    @csrf
     <div class="wrapper wapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-5">
@@ -24,7 +36,7 @@
                                     <input 
                                         type="text"
                                         name="email"
-                                        value=""
+                                        value="{{ old('email', ($user->email) ?? '') }}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off"
@@ -39,7 +51,7 @@
                                     <input 
                                         type="text"
                                         name="name"
-                                        value=""
+                                        value="{{ old('name' , ($user->name) ?? '') }}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off"
@@ -47,15 +59,24 @@
                                 </div>
                             </div>
                         </div>
+                        @php
+                            $userCatalogue = [
+                                '[Chọn nhóm thành viên ]',
+                                'Quản trị viên',
+                                'Cộng tác viên'
+                            ]
+                        @endphp
                         <div class="row mt15">
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-lable text-left">Nhóm Thành Viên
                                         <span class="text-danger">(*)</span>
-                                        <select name="user_catalogue_id" class="form-control mt5">
-                                            <option value="0">[Chọn nhóm thành viên]</option>
-                                            <option value="1">Quản trị viên</option>
-                                            <option value="2">Cộng tác viên</option>
+                                        <select name="user_catalog_id" class="form-control mt5 setupSelect2">
+                                            @foreach($userCatalogue as $key => $item)
+                                                <option  {{ $key == old('user_catalog_id', 
+                                                (isset($user->user_catalog_id)) ? $user->user_catalog_id: '') ? 'selected':'' }} 
+                                                value="{{$key}}">{{ $item }}</option>
+                                            @endforeach
                                         </select>
                                     </label>
                                 </div>
@@ -66,8 +87,9 @@
                                     </label>
                                     <input 
                                         type="date"
-                                        name="birthdate"
-                                        value=""
+                                        name="birthday"
+                                        value="{{ old('birthday', 
+                                                    (isset($user->birthday)) ? date('Y-m-d', strtotime($user->birthday)) : '') }}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off"
@@ -75,6 +97,7 @@
                                 </div>
                             </div>
                         </div>
+                        @if($config['method'] == 'create')
                         <div class="row mt15">
                             <div class="col-lg-6">
                                 <div class="form-row">
@@ -107,6 +130,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         <div class="row mt15">
                             <div class="col-lg-12">
                                 <div class="form-row">
@@ -116,7 +140,7 @@
                                     <input 
                                         type="text"
                                         name="image"
-                                        value=""
+                                        value="{{ old('image') }}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off"
@@ -146,11 +170,14 @@
                                 <div class="form-row">
                                     <label for="" class="control-lable text-left">Thành Phố
                                     </label>
-                                    <select name="province_id" class="form-control mt5 setupSelect2 province">
+                                    <select name="province_id" class="form-control mt5 setupSelect2 province location" data-target="districts">
                                         <option value="0">[Chọn Thành Phố]</option>
                                         @if(isset($provinces))
                                             @foreach($provinces as $item)
-                                                <option value="{{ $item->code }}">{{ $item->name }}</option>
+                                                <option 
+                                                    @if(old('province_id') == $item->code) selected
+                                                    @endif  value="{{ $item->code }}">{{ $item->name }}
+                                            </option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -160,7 +187,7 @@
                                 <div class="form-row">
                                     <label for="" class="control-lable text-left">Quận/Huyện
                                     </label>
-                                    <select name="district_id" class="form-control mt5 province">
+                                    <select name="district_id" class="form-control mt5 setupSelect2 districts location" data-target="wards">
                                         <option value="0">[Chọn Quận/Huyện]</option>
                                     </select>
                                 </div>
@@ -170,7 +197,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-lable text-left">Phường/Xã
-                                        <select name="ward_id" class="form-control mt5">
+                                        <select name="ward_id" class="form-control mt5 setupSelect2 wards">
                                             <option value="0">[Chọn Phường/Xã]</option>
                                         </select>
                                     </label>
@@ -178,40 +205,42 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Điện thoại
-                                    </label>
-                                    <input 
-                                        type="text"
-                                        name="phone"
-                                        value=""
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                    >
-                                </div>
-                            </div>
-                            <div class="col-lg-12 mt15">
-                                <div class="form-row">
-                                    <label for="" class="control-lable text-left">Ghi chú
-                                    </label>
-                                    <input 
-                                        type="text"
-                                        name="note"
-                                        value=""
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                    >
-                                </div>
-                            </div>
-                            <div class="col-lg-12 mt15">
-                                <div class="form-row">
                                     <label for="" class="control-lable text-left">Địa chỉ
                                     </label>
                                     <input 
                                         type="text"
                                         name="address"
-                                        value=""
+                                        value="{{ old('address', ($user->address) ?? '') }}"
+                                        class="form-control"
+                                        placeholder=""
+                                        autocomplete="off"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt15">
+                            <div class="col-lg-6">
+                                <div class="form-row">
+                                    <label for="" class="control-lable text-left">Điện thoại
+                                    </label>
+                                    <input 
+                                        type="text"
+                                        name="phone"
+                                        value="{{ old('phone' ,($user->phone) ?? '') }}"
+                                        class="form-control"
+                                        placeholder=""
+                                        autocomplete="off"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-row">
+                                    <label for="" class="control-lable text-left">Ghi chú
+                                    </label>
+                                    <input 
+                                        type="text"
+                                        name="description"
+                                        value="{{ old('description',($user->description) ?? '') }}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off"
@@ -225,8 +254,14 @@
         </div>
         <div class="text-right">
             <span class="input-group-btn">
-                <button type="button" class="btn btn-sm btn-primary">Lưu Lại</button> 
+                <button type="submit" class="btn btn-sm btn-primary mb10">Lưu Lại</button> 
             </span>
         </div>
     </div>
 </form>
+
+<script>
+    var province_id = '{{ (isset($user->province_id)) ? $user->province_id : old('province_id') }}';
+    var district_id = '{{ (isset($user->district_id)) ? $user->district_id : old('district_id') }}';
+    var ward_id = '{{ (isset($user->ward_id)) ? $user->ward_id : old('ward_id') }}';
+</script>

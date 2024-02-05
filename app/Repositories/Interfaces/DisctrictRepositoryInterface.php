@@ -3,11 +3,11 @@
 namespace App\Repositories\Interfaces;
 
 /**
- * Interface DistricServiceInterface
+ * Interface DisctrictRepositoryInterface
  * @package App\Services\Interfaces
  */
-interface DistrictRepositoryInterface
+interface DisctrictRepositoryInterface
 {
     public function all();
-
+    public function findDistrictByProvinceId(int $province_id);
 }
