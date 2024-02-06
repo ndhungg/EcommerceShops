@@ -29,7 +29,14 @@ class UserController extends Controller
    }
 
    public function index(){
-      $users = $this->userService->paginate();
+      $users = $this->userRepository->pagination([
+         'id',
+         'name',
+         'email',
+         'phone',
+         'address',
+         'publish',
+      ]);
       $config = [
          'js' => [
             'backend/js/plugins/switchery/switchery.js'

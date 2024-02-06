@@ -40,8 +40,6 @@ class UpdateUserRequest extends FormRequest
                 'name.required' => 'Bạn chưa nhập Họ tên.',
                 'name.string' => 'Họ tên phải là dạng ký tự.',
                 'name.max' => 'Độ dài của Họ tên tối đa là 191 ký tự.',
-
-
             ];
         }
 }

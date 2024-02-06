@@ -6,6 +6,7 @@ use App\Repositories\Interfaces\BaseRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Base;
 use Illuminate\Support\Arr;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class DictrictRepository
@@ -18,6 +19,20 @@ use Illuminate\Support\Arr;
     public function __construct( Model $model ){
         $this ->model = $model;
     }
+
+    public function pagination(
+        array $column = ['*'],
+        array $condition = [],
+        array $join = [],
+        int $perPage = 20
+    ){
+        $query = $this->model->select($column)->where($condition);
+        if(!empty($join)){
+            $query->join(...$join);
+        }
+        return $query->paginate($perPage);
+    }
+
 
     public function all(){
         return $this->model->all();
