@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Email
+                                    <label class="control-lable text-left">Email
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input 
@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Họ Tên
+                                    <label class="control-lable text-left">Họ Tên
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input 
@@ -69,7 +69,7 @@
                         <div class="row mt15">
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Nhóm Thành Viên
+                                    <label class="control-lable text-left">Nhóm Thành Viên
                                         <span class="text-danger">(*)</span>
                                         <select name="user_catalog_id" class="form-control mt5 setupSelect2">
                                             @foreach($userCatalogue as $key => $item)
@@ -83,7 +83,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Ngày sinh
+                                    <label class="control-lable text-left">Ngày sinh
                                     </label>
                                     <input 
                                         type="date"
@@ -101,7 +101,7 @@
                         <div class="row mt15">
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Mật khẩu
+                                    <label class="control-lable text-left">Mật khẩu
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input 
@@ -116,7 +116,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Nhập lại mật khẩu
+                                    <label class="control-lable text-left">Nhập lại mật khẩu
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input 
@@ -134,7 +134,7 @@
                         <div class="row mt15">
                             <div class="col-lg-12">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Ảnh đại diện
+                                    <label class="control-lable text-left">Ảnh đại diện
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input 
@@ -168,7 +168,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Thành Phố
+                                    <label class="control-lable text-left">Thành Phố
                                     </label>
                                     <select name="province_id" class="form-control mt5 setupSelect2 province location" data-target="districts">
                                         <option value="0">[Chọn Thành Phố]</option>
@@ -185,7 +185,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Quận/Huyện
+                                    <label class="control-lable text-left">Quận/Huyện
                                     </label>
                                     <select name="district_id" class="form-control mt5 setupSelect2 districts location" data-target="wards">
                                         <option value="0">[Chọn Quận/Huyện]</option>
@@ -196,7 +196,7 @@
                         <div class="row mt15">
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Phường/Xã
+                                    <label class="control-lable text-left">Phường/Xã
                                         <select name="ward_id" class="form-control mt5 setupSelect2 wards">
                                             <option value="0">[Chọn Phường/Xã]</option>
                                         </select>
@@ -205,7 +205,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Địa chỉ
+                                    <label class="control-lable text-left">Địa chỉ
                                     </label>
                                     <input 
                                         type="text"
@@ -221,7 +221,7 @@
                         <div class="row mt15">
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Điện thoại
+                                    <label class="control-lable text-left">Điện thoại
                                     </label>
                                     <input 
                                         type="text"
@@ -235,7 +235,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Ghi chú
+                                    <label class="control-lable text-left">Ghi chú
                                     </label>
                                     <input 
                                         type="text"

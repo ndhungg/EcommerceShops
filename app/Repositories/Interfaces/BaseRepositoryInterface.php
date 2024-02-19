@@ -18,6 +18,15 @@ interface BaseRepositoryInterface
         array $column = ['*'],
         array $condition = [],
         array $join = [],
-        int $perPage = 20
+        int $perPage = 1,
+        array $extend = [],
     );
+
+    public function updateByWhereIn(
+        string $whererInField,
+        array $whereIn = [], 
+        array $payload = []
+    );
+
+    
 }

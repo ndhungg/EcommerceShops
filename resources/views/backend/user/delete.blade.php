@@ -10,7 +10,7 @@
                 </div>
                 <div class="panel-description">
                     <p> Bạn đang muốn xóa thông tin thành viên có Email là: <span class="text-danger">{{$user->email}}</span> </p>
-                    <p> Lưu ý: Không thể khôi phục thành viên sau khi xóa. Hãy chắc chắn bạn muốn thực hiện chức năng này.</p>
+                    <p> <span class="text-danger panel-sub-title">Lưu ý </span>: Không thể khôi phục thành viên sau khi xóa. Hãy chắc chắn bạn muốn thực hiện chức năng này.</p>
                 </div>
             </div>
             <div class="col-lg-7">
@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Email
+                                    <label class="control-lable text-left">Email
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input 
@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Họ Tên
+                                    <label class="control-lable text-left">Họ Tên
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input 

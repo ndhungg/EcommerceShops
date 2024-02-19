@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Ajax\DashBoardController as AjaxDashboardController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Ajax\LocationController;
 use Illuminate\Support\Facades\Route;
@@ -46,15 +47,14 @@ Route::group(['prefix' => 'user'], function(){
 
 // Route::get('user/create', [UserController::class, 'create'])->name('user.index')->middleware('admin');
 
-
 // Ajax
-Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])
-->name('ajax.location.index')->middleware('admin');
+Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index')->middleware('admin');
+Route::post('ajax/dashboard/changeStatus', [AjaxDashboardController::class, 'changeStatus'])->name('ajax.location.changeStatus')->middleware('admin');
+Route::post('ajax/dashboard/changeStatusAll', [AjaxDashboardController::class, 'changeStatusAll'])->name('ajax.location.changeStatusAll')->middleware('admin');
 
 
 
 
-Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')
-->middleware('login');
+Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')->middleware('login');
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::post('login', [AuthController::class, 'login'])->name('auth.login');

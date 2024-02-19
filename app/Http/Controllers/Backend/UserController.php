@@ -28,21 +28,17 @@ class UserController extends Controller
      $this -> userRepository = $userRepository;
    }
 
-   public function index(){
-      $users = $this->userRepository->pagination([
-         'id',
-         'name',
-         'email',
-         'phone',
-         'address',
-         'publish',
-      ]);
+   public function index(Request $request){
+      $users = $this->userService->paginate($request);
       $config = [
          'js' => [
-            'backend/js/plugins/switchery/switchery.js'
+            'backend/js/plugins/switchery/switchery.js',
+            'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
          ],
          'css' => [
-            'backend/css/plugins/switchery/switchery.css'
+            'backend/css/plugins/switchery/switchery.css',
+            'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
+
          ],
       ];
       $config['seo'] = config('apps.user');
@@ -107,7 +103,7 @@ class UserController extends Controller
       ));
    }
 
-   public function update ($id, UpdateUserRequest $request){
+   public function update($id, UpdateUserRequest $request){
       if($this->userService->update($id, $request)){
          return redirect()->route('user.index')->with('success','Cập nhật bản ghi thành công');
       }
@@ -123,7 +119,6 @@ class UserController extends Controller
                ],
             'js' => [
                      'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
-                     'backend/library/location.js'
                   ]
       ];
 
@@ -143,6 +138,5 @@ class UserController extends Controller
       return redirect()->route('user.index')->with('error','Xóa bản ghi thất bại. Hãy thử lại.');
    }
 
- 
 
 }

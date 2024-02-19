@@ -24,15 +24,20 @@ use Illuminate\Database\Eloquent\Builder;
         array $column = ['*'],
         array $condition = [],
         array $join = [],
-        int $perPage = 20
+        int $perPage = 1,
+        array $extend = [],
     ){
-        $query = $this->model->select($column)->where($condition);
+        $query = $this->model->select($column)->where(function ($query) use ($condition){
+            if(isset($condition['keywords']) && !empty($condition['keywords'])){
+                    $query->where('name', 'LIKE', '%'.$condition['keywords'].'%');
+                }
+       });
         if(!empty($join)){
             $query->join(...$join);
         }
-        return $query->paginate($perPage);
+        return $query->paginate($perPage)
+                     ->withQueryString()->withPath(env('APP_URL').$extend['path']);
     }
-
 
     public function all(){
         return $this->model->all();
@@ -46,6 +51,10 @@ use Illuminate\Database\Eloquent\Builder;
     public function update(int $id = 0,array $payload = []){
          $model = $this->findById($id);
          return $model->update($payload);
+    }
+
+    public function updateByWhereIn(string $whererInField, array $whereIn = [], array $payload = []){
+        return $this->model->whereIn($whererInField, $whereIn)->update($payload);
     }
 
 
